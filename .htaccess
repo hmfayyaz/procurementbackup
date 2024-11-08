@@ -1,0 +1,23 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Redirect all requests to index.php, except existing files or directories
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>
+
+DirectoryIndex index.php
+
+# Disable server signature
+ServerSignature Off
+
+# Set PHP settings
+<IfModule mod_php7.c>
+    php_flag display_errors On
+    php_flag register_globals Off
+    php_flag short_open_tag On
+    php_value max_execution_time 120
+    php_value memory_limit 128M
+</IfModule>
